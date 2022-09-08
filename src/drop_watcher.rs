@@ -26,7 +26,7 @@ impl<T> DropWatcher<T> {
         }
     }
 
-    pub fn notify_drop(&self, id: usize) {
+    pub(crate) fn notify_drop(&self, id: usize) {
         self.props.as_ref().borrow_mut().markers[id].drop_count += 1;
     }
 
