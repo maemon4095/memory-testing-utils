@@ -1,4 +1,4 @@
-use std::{borrow::Borrow, cell::Ref, fmt::Debug};
+use std::{cell::Ref, fmt::Debug};
 
 use crate::drop_watcher::DropWatcher;
 pub struct DropMarker<'a, T> {
@@ -35,7 +35,7 @@ impl<'a, T: Debug> Debug for DropMarker<'a, T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("DropMarker")
             .field("id", &self.id)
-            .field("props", self.props().borrow())
+            .field("props", &self.props())
             .finish()
     }
 }
