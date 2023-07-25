@@ -1,4 +1,7 @@
-use std::{cell::Ref, fmt::Debug};
+use std::{
+    cell::{Ref, RefMut},
+    fmt::Debug,
+};
 
 use crate::drop_watcher::DropWatcher;
 pub struct DropMarker<'a, T> {
@@ -18,6 +21,10 @@ impl<'a, T> Drop for DropMarker<'a, T> {
 impl<'a, T> DropMarker<'a, T> {
     pub fn props(&self) -> Ref<T> {
         Ref::map(self.watcher.unwrap().watch(self.id), |s| &s.props)
+    }
+
+    pub fn props_mut(&mut self) -> RefMut<T> {
+        self.watcher.unwrap().props_mut(self.id)
     }
 
     pub fn id(&self) -> usize {

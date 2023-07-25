@@ -1,5 +1,5 @@
 use std::{
-    cell::{Ref, RefCell},
+    cell::{Ref, RefCell, RefMut},
     fmt::Debug,
 };
 
@@ -43,6 +43,10 @@ impl<T> DropWatcher<T> {
 
     pub fn watch(&self, id: usize) -> Ref<DropMarkerState<T>> {
         Ref::map(self.props.borrow(), |w| &w.markers[id])
+    }
+
+    pub fn props_mut(&self, id: usize) -> RefMut<T> {
+        RefMut::map(self.props.borrow_mut(), |w| &mut w.markers[id].props)
     }
 
     pub fn markers(&self) -> Ref<[DropMarkerState<T>]> {
